@@ -4,6 +4,7 @@
 //load the 'express' module which makes writing web servers easy
 const express = require("express");
 const app = express();
+const lodash = require("lodash");
 
 //load the quotes JSON
 const quotes = require("./quotes.json");
@@ -24,7 +25,14 @@ app.get("/", function (request, response) {
 
 app.get("/quotes", (request, response) => response.send(quotes));
 
-app.get("/quotes/random", (request, response) => response.send(pickFromArray(quotes)));
+
+// Random quote is created by function named pickFromArray
+// app.get("/quotes/random", (request, response) => response.send(pickFromArray(quotes)));
+
+
+// Random quote is created by lodash library
+app.get("/quotes/random", (request, response) => response.send(lodash.sample(quotes)));
+
 
 app.get("/quotes/search", (request, response) => {
   let term = request.query.term;
